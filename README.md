@@ -23,7 +23,39 @@
 
 虚拟机可以使用基本的功能；但为了更好地完成实验，你可能需要配置以下内容：
 
-1. **X11 Xorg显示服务器和Xterm。**当然，你也可以完全使用命令行完成实验，本次实验也并不需要该功能；但建议可以安装X11服务器。之后实验中，使用Mininet的Xterm终端功能会使实验更加方便。你需要通过命令行安装：
+1. **虚拟机共享剪切板 / 文件夹（推荐安装）**。此项和你的虚拟机软件有关：
+
+   1. VirtualBox:
+      VirtualBox的共享剪切板 / 文件夹功能已经配置好，无需额外安装。
+      [安装文档](https://wiki.archlinux.org/title/VirtualBox/Install_Arch_Linux_as_a_guest)
+
+   2. VMWare
+
+      ```bash
+      sudo pacman -S open-vm-tools gtkmm3
+      sudo systemctl enable vmtoolsd.service vmware-vmblock-fuse.service
+      ```
+
+      [安装文档](https://wiki.archlinux.org/title/VMware/Install_Arch_Linux_as_a_guest)
+
+   3. KVM / Libvirt / Virt-manager / Spice
+
+      ```bash
+      sudo pacman -S spice-vdagent
+      sudo systemctl enable spice-vdagentd.service
+
+   安装完成后，重启虚拟机。
+
+2. **SSH服务器**。若想使用ssh远程连接进行开发，可以在虚拟机上安装ssh服务器：
+
+   ```bash
+   sudo pacman -S openssh
+   sudo systemctl enable --now sshd
+   ```
+
+   [使用文档](https://wiki.archlinux.org/title/OpenSSH)
+
+3. **X11 Xorg显示服务器和Xterm**。当然，你也可以完全使用命令行完成实验，本次实验也并不需要该功能；但建议可以安装X11服务器。之后实验中，使用Mininet的Xterm终端功能会使实验更加方便。你需要通过命令行安装：
 
    ```bash
    sudo pacman -S xorg-server xorg-apps xterm
@@ -33,7 +65,7 @@
 
    [安装文档](https://wiki.archlinux.org/title/Xorg)
 
-2. **VScode开发环境。**虚拟机配置了ssh服务器，可以通过VSCode远程连接进行开发；或者如果想在虚拟机本地进行开发，可以在虚拟机上安装VSCode：
+4. **VScode开发环境**。配置完ssh服务器后，可以通过VSCode远程连接进行开发；或者如果想在虚拟机本地进行开发，可以在虚拟机上安装VSCode：
 
    ```bash
    yay -S visual-studio-code-bin
@@ -41,13 +73,13 @@
 
    [安装文档](https://wiki.archlinux.org/title/Visual_Studio_Code)
 
-3. **中文界面。**我们鼓励你使用英文界面，但你也可以安装中文语言包（会有很多机翻）：
+5. **中文界面**。我们鼓励你使用英文界面，但你也可以安装中文语言包（会有很多机翻）：
 
-   - 设置默认显示语言：编辑`~/.xprofile`，设置以下内容：
+   - 设置默认显示语言：编辑`/var/lib/AccountService/users/sdn`，设置以下内容：
 
      ```bash
-     export LANG=zh_CN.UTF-8
-     export LANGUAGE=zh_CN:en_US
+     [User]
+     Language=zh_CN.UTF-8
      ```
 
    - 安装CJK字体：推荐选择思源黑体（Adobe发行Source Han Sans `adobe-source-han-sans-cn-fonts` 或 Google发行Noto Fonts `noto-fonts-cjk`），也可以在以下注释的字体中选择：
@@ -66,35 +98,7 @@
 
    [安装文档](https://wiki.archlinux.org/title/Localization/Simplified_Chinese)
 
-4. **虚拟机共享剪切板 / 文件夹**。此项和你的虚拟机软件有关：
-
-   1. VirtualBox:
-
-      ```bash
-      sudo pacman -S virtualbox-guest-utils
-      sudo systemctl enable vboxservice.service
-      ```
-
-      [安装文档](https://wiki.archlinux.org/title/VirtualBox/Install_Arch_Linux_as_a_guest)
-
-   2. VMWare
-
-      ```bash
-      sudo pacman -S open-vm-tools gtkmm3
-      sudo systemctl enable vmtoolsd.service vmware-vmblock-fuse.service
-      ```
-
-      [安装文档](https://wiki.archlinux.org/title/VMWare/Install_Arch_Linux_as_a_guest)
-
-   3. KVM / Libvirt / Virt-manager / Spice
-
-      ```bash
-      sudo pacman -S spice-vdagent
-      sudo systemctl enable spice-vdagentd.service
-
-   安装完成后，重启虚拟机。
-
-5. 我们鼓励你自行配置实验机器，加入你想要的个性化。如果你对Ubuntu等操作系统比较熟悉，但并不熟悉Arch Linux，你需要注意到两者的不同：
+6. 我们鼓励你自行配置实验机器，加入你想要的个性化。如果你对Ubuntu等操作系统比较熟悉，但并不熟悉Arch Linux，你需要注意到两者的不同：
 
    1. Arch Linux使用`pacman`进行包管理。为了安装软件，你需要输入
 
@@ -110,9 +114,9 @@
 
       。
 
-   2. 软件包的名称也可能有所不同，你可以在https://archlinux.org/packages/中搜索，或使用命令`pacman -Ss KEYWORD`来搜索。
+   2. 软件包的名称也可能有所不同，你可以在[Arch Linux软件包数据库](https://archlinux.org/packages/)中搜索，或使用命令`pacman -Ss KEYWORD`来搜索。
 
-   我们选用Arch Linux的原因之一是，Arch Linux是文档最为全面、详细、易读的Linux发行版之一。你可以在[ArchWiki](https://wiki.archlinux.org/title/Main_page)上搜索到你可能遇到的很多问题的答案，也可以参与社区讨论；如有遇到其他问题助教们也会尽量给出答复。
+   我们选用Arch Linux的原因之一是，Arch Linux是文档最为全面、详细、易读的Linux发行版之一。你可以在[ArchWiki](https://wiki.archlinux.org/title/Main_page)上搜索到你可能遇到的很多问题的答案，也可以参与社区讨论；你也可以借助AI工具解决遇到的问题。如有遇到其他问题助教们也会尽量给出答复。
 
 ## 一、实验环境搭建
 
@@ -123,43 +127,46 @@
   
        -    VMWare Workstation Pro/Fusion。VMWare是闭源软件，仅可免费个人使用，下载前需要注册账号: https://support.broadcom.com/group/ecx/free-downloads。
   
-  -    本实验提供虚拟机镜像文件（`sdnexp-2025.ova`），已配置`Mininet`和`Ryu`。
+  -    本实验提供虚拟机镜像文件（`sdn-2026.ova`），已配置实验所需的软件包。
   -    环境搭建步骤如下：
     - 安装对应虚拟机软件
-    - 导入镜像文件`sdnexp-2025.ova`并运行。
+    - 导入镜像文件`sdn-2026.ova`并运行。
   
 - 方式2：从源代码 / 包管理安装。你需要有可以使用的Linux系统。
 
-  - Debian / Ubuntu:
+  - Debian / Ubuntu (适用于 Debian 13 Trixie / Ubuntu 22.04+):
 
-    ``` bash
-    # 参考视频
-    # `Workstaion`和`Ubuntu`的安装：https://www.bilibili.com/video/BV1ng4y1z77g
-    # SDN环境搭建（`Mininet`）：https://www.bilibili.com/video/BV1nC4y1x7Z8
+    ```bash
+    # 安装mininet、wireshark、frr
+    sudo apt-get install mininet wireshark frr
     
-    # 安装mininet
-    git clone https://github.com/mininet/mininet.git
-    cd mininet/util 
-    sudo ./install.sh -n3v
-    
-    # 安装wireshark
-    sudo add-apt-repository ppa:wireshark-dev/stable
-    sudo apt update
-    sudo apt install wireshark
+    # 安装 uv Python 项目管理工具
+    curl -LsSf https://astral.sh/uv/install.sh | sudo env UV_INSTALL_DIR="/usr/bin" sh
     ```
 
   - Fedora / RHEL
 
     ```bash
-    sudo dnf install mininet wireshark
+    sudo dnf install mininet wireshark frr uv
     ```
 
   - Arch Linux (AUR，需要yay工具)
 
     ```bash
-    sudo pacman -S wireshark-qt
+    sudo pacman -S wireshark-qt openvswitch
     yay -S mininet
+
+    # 配置Open vSwitch
+    # https://wiki.archlinux.org/title/Open_vSwitch
+    sudo systemctl enable --now ovs-vswitchd.service
     ```
+
+    Arch Linux的FRR需从源代码安装。首先安装libyang：
+    ```
+    yay -S libyang3
+    ```
+    参照FRR官网文档进行从源代码构建安装，注意无需重新安装libyang。
+    [安装文档](https://docs.frrouting.org/projects/dev-guide/en/latest/building-frr-for-archlinux.html)
 
 ## 二、实验工具介绍
 
