@@ -122,7 +122,7 @@
 
 - **方式1（推荐）**：使用虚拟机镜像搭建。
   
-  -    **虚拟机软件：**可以选用Oracle VirtualBox或者VMWare Workstation Pro（Windows）/ VMWare Fusion（Mac）。两者都是免费的。
+  -    **虚拟机软件**：可以选用Oracle VirtualBox或者VMWare Workstation Pro（Windows）/ VMWare Fusion（Mac）。两者都是免费的。
        -    VirtualBox（推荐），可在官网自行下载: https://www.virtualbox.org/wiki/Downloads
   
        -    VMWare Workstation Pro/Fusion。VMWare是闭源软件，仅可免费个人使用，下载前需要注册账号: https://support.broadcom.com/group/ecx/free-downloads。
