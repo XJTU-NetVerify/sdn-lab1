@@ -1,6 +1,4 @@
 
-
-
 <h1 align="center">实验指导书（一）</h1>
 
 
@@ -46,16 +44,8 @@
 
    安装完成后，重启虚拟机。
 
-2. **SSH服务器**。若想使用ssh远程连接进行开发，可以在虚拟机上安装ssh服务器：
 
-   ```bash
-   sudo pacman -S openssh
-   sudo systemctl enable --now sshd
-   ```
-
-   [使用文档](https://wiki.archlinux.org/title/OpenSSH)
-
-3. **X11 Xorg显示服务器和Xterm**。当然，你也可以完全使用命令行完成实验，本次实验也并不需要该功能；但建议可以安装X11服务器。之后实验中，使用Mininet的Xterm终端功能会使实验更加方便。你需要通过命令行安装：
+2. **X11 Xorg显示服务器和Xterm**。当然，你也可以完全使用命令行完成实验，本次实验也并不需要该功能；但建议可以安装X11服务器。之后实验中，使用Mininet的Xterm终端功能会使实验更加方便。你需要通过命令行安装：
 
    ```bash
    sudo pacman -S xorg-server xorg-apps xterm
@@ -65,7 +55,7 @@
 
    [安装文档](https://wiki.archlinux.org/title/Xorg)
 
-4. **VScode开发环境**。配置完ssh服务器后，可以通过VSCode远程连接进行开发；或者如果想在虚拟机本地进行开发，可以在虚拟机上安装VSCode：
+3. **VScode开发环境**。虚拟机已配置SSH服务器，可以通过VSCode远程连接进行开发；或者如果想在虚拟机本地进行开发，可以在虚拟机上安装VSCode：
 
    ```bash
    yay -S visual-studio-code-bin
@@ -73,13 +63,23 @@
 
    [安装文档](https://wiki.archlinux.org/title/Visual_Studio_Code)
 
-5. **中文界面**。我们鼓励你使用英文界面，但你也可以安装中文语言包（会有很多机翻）：
+4. **中文界面**。我们鼓励你使用英文界面，但你也可以安装中文语言包（会有很多机翻）：
 
-   - 设置默认显示语言：编辑`/var/lib/AccountService/users/sdn`，设置以下内容：
+   - 设置默认显示语言：编辑`/var/lib/AccountService/users/sdn`（需要sudo），设置以下内容：
 
      ```bash
      [User]
      Language=zh_CN.UTF-8
+     ```
+
+   - 生成语言包：编辑`/etc/locale.gen`，取消注释`zh_CN.UTF-8`一行：
+
+     ```bash
+     #zh_CN.GB18030 GB18030
+     #zh_CN.GBK GBK
+     zh_CN.UTF-8 UTF-8
+     #zh_CN GB2312
+     #zh_HK.UTF-8 UTF-8
      ```
 
    - 安装CJK字体：推荐选择思源黑体（Adobe发行Source Han Sans `adobe-source-han-sans-cn-fonts` 或 Google发行Noto Fonts `noto-fonts-cjk`），也可以在以下注释的字体中选择：
@@ -155,7 +155,7 @@
     ```bash
     sudo pacman -S wireshark-qt openvswitch
     yay -S mininet
-
+    
     # 配置Open vSwitch
     # https://wiki.archlinux.org/title/Open_vSwitch
     sudo systemctl enable --now ovs-vswitchd.service
