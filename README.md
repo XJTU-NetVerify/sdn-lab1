@@ -63,14 +63,7 @@
 
    [安装文档](https://wiki.archlinux.org/title/Visual_Studio_Code)
 
-4. **中文界面**。我们鼓励你使用英文界面，但你也可以安装中文语言包（会有很多机翻）：
-
-   - 设置默认显示语言：编辑`/var/lib/AccountService/users/sdn`（需要sudo），设置以下内容：
-
-     ```bash
-     [User]
-     Language=zh_CN.UTF-8
-     ```
+4. **中文界面**。不推荐，但你可以安装中文语言包：
 
    - 生成语言包：编辑`/etc/locale.gen`，取消注释`zh_CN.UTF-8`一行：
 
@@ -81,6 +74,8 @@
      #zh_CN GB2312
      #zh_HK.UTF-8 UTF-8
      ```
+
+     使用`sudo locale-gen`命令生成本地化。
 
    - 安装CJK字体：推荐选择思源黑体（Adobe发行Source Han Sans `adobe-source-han-sans-cn-fonts` 或 Google发行Noto Fonts `noto-fonts-cjk`），也可以在以下注释的字体中选择：
 
